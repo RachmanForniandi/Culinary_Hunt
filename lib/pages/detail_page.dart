@@ -235,7 +235,8 @@ class _DetailPageState extends State<DetailPage> {
           listen: false,
         );
 
-        final restaurantId = provider.detail?.restaurant?.id ?? '';
+        //final restaurantId = provider.detail?.restaurant?.id ?? '';
+        final restaurantId = widget.restaurantId;
 
         return AlertDialog(
           title: const Text('Add Review'),
@@ -267,6 +268,15 @@ class _DetailPageState extends State<DetailPage> {
                   return;
                 }
 
+                if (restaurantId.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('ID restoran tidak ditemukan'),
+                    ),
+                  );
+                  return;
+                }
+
                 try {
                   await provider.addReview(
                     id: restaurantId,
@@ -281,7 +291,7 @@ class _DetailPageState extends State<DetailPage> {
                   );
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Gagal kirim review')),
+                    SnackBar(content: Text(e.toString())),
                   );
                 }
               },

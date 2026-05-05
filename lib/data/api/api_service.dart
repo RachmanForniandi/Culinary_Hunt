@@ -1,9 +1,9 @@
-
 import 'dart:convert';
 
 import 'package:culinary_hunt/data/models/detail_restaurants.dart';
 import 'package:culinary_hunt/data/models/restaurants_response.dart';
 import 'package:culinary_hunt/data/models/review_restaurant.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
@@ -21,9 +21,7 @@ class ApiService {
   }
 
   Future<DetailRestaurants> getDetailRestaurant(String id) async {
-    final response = await http.get(
-      Uri.parse('$baseUrl/detail/$id'),
-    );
+    final response = await http.get(Uri.parse('$baseUrl/detail/$id'));
 
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
@@ -34,28 +32,32 @@ class ApiService {
   }
 
   Future<ReviewRestaurants> postReview({
-  required String id,
-  required String name,
-  required String review,
+    required String id,
+    required String name,
+    required String review,
   }) async {
-      final response = await http.post(
-        Uri.parse('$baseUrl/review'),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode({
-          "id": id,
-          "name": name,
-          "review": review,
+    final response = await http.post(
+      Uri.parse('$baseUrl/review'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        "id": id, 
+        "name": name, 
+        "review": review
         }),
     );
 
-    if (response.statusCode == 200) {
+  debugPrint('STATUS CODE: ${response.statusCode}');
+  debugPrint('RESPONSE BODY: ${response.body}');
+
+    if (response.statusCode >= 200 && response.statusCode < 300) {
       final jsonData = jsonDecode(response.body);
+
+      if (jsonData['error'] == true) {
+        throw Exception(jsonData['message']);
+      }
       return ReviewRestaurants.fromMap(jsonData);
     } else {
-      throw Exception('Failed to post review');
+      throw Exception('HTTP ${response.statusCode}: ${response.body}');
     }
   }
-  
 }
