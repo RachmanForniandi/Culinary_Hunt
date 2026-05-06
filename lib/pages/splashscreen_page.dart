@@ -1,6 +1,6 @@
-
 import 'dart:async';
 
+import 'package:culinary_hunt/main.dart';
 import 'package:culinary_hunt/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +22,13 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
         MaterialPageRoute(builder: (_) => const HomePage()),
       );
     });
+
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const RootPage()),
+      );
+    });
   }
 
   @override
@@ -32,10 +39,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset(
-              'images/restaurant.png',
-              width: 120,
-            ),
+            Image.asset('images/restaurant.png', width: 120),
             const SizedBox(height: 16),
             const Text(
               'Culinary Hunt',

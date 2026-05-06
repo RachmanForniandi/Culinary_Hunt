@@ -1,4 +1,5 @@
 import 'package:culinary_hunt/pages/home_page.dart';
+import 'package:culinary_hunt/pages/settings_page.dart';
 import 'package:culinary_hunt/pages/splashscreen_page.dart';
 import 'package:culinary_hunt/provider/detail_restaurant_provider.dart';
 import 'package:culinary_hunt/provider/restaurant_provider.dart';
@@ -14,7 +15,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -32,7 +32,10 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
           colorSchemeSeed: Colors.indigo,
-          appBarTheme: const AppBarTheme(centerTitle: true, elevation: 0),
+          appBarTheme: const AppBarTheme(
+            centerTitle: true,
+            elevation: 0,
+          ),
           cardTheme: CardThemeData(
             elevation: 3,
             shape: RoundedRectangleBorder(
@@ -40,7 +43,59 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
+
+        // 🔥 Awal tetap Splash
         home: const SplashScreenPage(),
+      ),
+    );
+  }
+}
+
+
+class RootPage extends StatefulWidget {
+  const RootPage({super.key});
+
+  @override
+  State<RootPage> createState() => _RootPageState();
+}
+
+class _RootPageState extends State<RootPage> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = const [
+    HomePage(),
+    SettingsPage(),
+  ];
+
+  void _onTap(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _pages,
+      ),
+
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _onTap,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Theme.of(context).colorScheme.primary,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+        ],
       ),
     );
   }
