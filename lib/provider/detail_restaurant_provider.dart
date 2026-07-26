@@ -43,16 +43,15 @@ class DetailRestaurantProvider extends ChangeNotifier {
       );
       final reviews = result.customerReviews ?? [];
 
-      // 🔥 UPDATE LIST REVIEW TANPA RELOAD
+      // UPDATE LIST REVIEW TANPA RELOAD
       if (_detail?.restaurant != null) {
         _detail!.restaurant!.customerReviews = List.from(reviews);
       }
 
       notifyListeners();
     } catch (e) {
-      debugPrint('ERROR ADD REVIEW: $e'); // 🔥 LIHAT ERROR ASLI
+      debugPrint('ERROR ADD REVIEW: $e'); //LIHAT ERROR ASLI
       rethrow;
-      // throw Exception('Failed to submit review');
     }
   }
 }

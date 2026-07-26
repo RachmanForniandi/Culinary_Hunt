@@ -287,7 +287,8 @@ class _DetailPageState extends State<DetailPage>
       ),
     );
   }
-  /// ── REVIEW DIALOG ──────────────────────────────────────────────────────────
+
+  /// REVIEW DIALOG 
   void showReviewDialog(BuildContext context) {
     final nameController = TextEditingController();
     final reviewController = TextEditingController();
