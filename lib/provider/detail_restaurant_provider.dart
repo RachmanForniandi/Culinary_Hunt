@@ -3,7 +3,6 @@ import 'package:culinary_hunt/data/models/detail_restaurants.dart';
 import 'package:culinary_hunt/utils/result_state.dart';
 import 'package:flutter/material.dart';
 
-
 class DetailRestaurantProvider extends ChangeNotifier {
   final ApiService apiService;
 
@@ -44,14 +43,15 @@ class DetailRestaurantProvider extends ChangeNotifier {
       );
       final reviews = result.customerReviews ?? [];
 
-      // 🔥 UPDATE LIST REVIEW TANPA RELOAD
+      // UPDATE LIST REVIEW TANPA RELOAD
       if (_detail?.restaurant != null) {
-      _detail!.restaurant!.customerReviews = List.from(reviews);
-    }
+        _detail!.restaurant!.customerReviews = List.from(reviews);
+      }
 
       notifyListeners();
     } catch (e) {
-      throw Exception('Failed to submit review');
+      debugPrint('ERROR ADD REVIEW: $e'); //LIHAT ERROR ASLI
+      rethrow;
     }
   }
 }

@@ -24,7 +24,7 @@ class ItemRestaurant extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: Row(
           children: [
-            // 🔥 IMAGE
+            // IMAGE
             Hero(
               tag: restaurant.id ?? '',
               child: ClipRRect(

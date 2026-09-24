@@ -20,8 +20,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Restaurant> filteredRestaurants = [];
 
-
-
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -176,7 +174,6 @@ class _HomePageState extends State<HomePage> {
                           },
                         );
                       } else {
-                        /// 🧩 GRID VIEW
                         return GridView.builder(
                           padding: const EdgeInsets.all(12),
                           itemCount: filteredRestaurants.length,
@@ -204,7 +201,6 @@ class _HomePageState extends State<HomePage> {
               ],
             );
           }
-
           return const SizedBox();
         },
       ),
@@ -248,7 +244,5 @@ class _HomePageState extends State<HomePage> {
         ),
     );
   }
-
-
 }
 

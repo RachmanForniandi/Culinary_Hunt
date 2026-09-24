@@ -34,7 +34,7 @@ class Restaurant {
     name: json["name"],
     description: json["description"],
     city: json["city"],
-    address: json["address"], // hanya ada di detail
+    address: json["address"], 
     pictureId: json["pictureId"],
     rating: json["rating"]?.toDouble(),
     categories: json["categories"] == null
